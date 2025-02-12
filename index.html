@@ -3,165 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sabarinathan C - Front-End Developer</title>
+    <title>Sabarinathan C | Front-End Developer</title>
     <style>
-        /* General Styles */
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            text-align: center;
         }
-
-        body {
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
         header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 3em;
-        }
-
-        header p {
-            font-size: 1.2em;
-        }
-
-        header .contact-info a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        section {
-            background-color: white;
-            margin: 20px 0;
+            background: #333;
+            color: #fff;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-        section h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
+        nav ul {
+            list-style: none;
+            padding: 0;
         }
-
-        ul {
-            list-style-type: none;
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
         }
-
-        ul li {
-            margin: 10px 0;
-            line-height: 1.5;
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
         }
-
+        section {
+            padding: 20px;
+        }
+        .project {
+            background: #f4f4f4;
+            margin: 10px auto;
+            padding: 15px;
+            max-width: 500px;
+            border-radius: 5px;
+        }
         footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
+        @media (max-width: 600px) {
+            nav ul li {
+                display: block;
+                margin: 10px 0;
             }
         }
     </style>
 </head>
 <body>
-
     <header>
-        <div class="container">
-            <h1>Sabarinathan C</h1>
-            <p>Front-End Developer | Web Developer</p>
-            <div class="contact-info">
-                <a href="mailto:sabarikpv@gmail.com">sabarikpv@gmail.com</a> | 
-                <a href="tel:+916374567428">+91 6374567428</a> | 
-                <a href="https://www.linkedin.com/in/sabarinathan-c-082274304/" target="_blank">LinkedIn</a>
-            </div>
-        </div>
-    </header>
-
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>As a dedicated Front-End Developer and web enthusiast, I specialize in crafting visually appealing and interactive web experiences. With expertise in HTML, CSS, JavaScript, and React.js, I focus on building user-friendly and responsive websites that enhance user engagement.</p>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <h2>Skills</h2>
+        <h1>Sabarinathan C</h1>
+        <p>Front-End Developer | React.js Specialist | User-Centered Web Developer</p>
+        <nav>
             <ul>
-                <li><strong>Front-End Development:</strong> HTML5, CSS3, JavaScript (ES6+), React.js</li>
-                <li><strong>Responsive Design:</strong> Ensuring cross-device compatibility and mobile-friendly UI</li>
-                <li><strong>Animations & Effects:</strong> AOS (Animate On Scroll), CSS animations</li>
-                <li><strong>Web Optimization:</strong> Enhancing performance, accessibility, and SEO</li>
-                <li><strong>Version Control:</strong> Git, GitHub</li>
-                <li><strong>Tools & Design:</strong> Figma, Adobe Photoshop</li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+        </nav>
+    </header>
+    
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Aspiring Front-End Developer with over 8 months of experience in building responsive, user-centered web applications using HTML, CSS, JavaScript, and React.js. Currently pursuing an MCA and continuously expanding my expertise in modern web technologies.</p>
+    </section>
+    
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <ul>
+            <li>HTML, CSS, JavaScript, React.js</li>
+            <li>Responsive Web Design</li>
+            <li>Cross-Browser Compatibility</li>
+            <li>SEO & Accessibility Compliance</li>
+        </ul>
+    </section>
+    
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <h3>Keeladi Museum Website</h3>
+            <p>Developed a responsive website showcasing exhibits with engaging layouts.</p>
+        </div>
+        <div class="project">
+            <h3>Sempozhil Event Website</h3>
+            <p>Created an event site optimized for performance and user engagement.</p>
+        </div>
+        <div class="project">
+            <h3>SkytechFM Facility Management Platform</h3>
+            <p>Built a platform from scratch with mobile-first design.</p>
         </div>
     </section>
-
-    <section id="experience">
-        <div class="container">
-            <h2>Experience</h2>
-            <div class="job">
-                <h3>Founder & Web Developer</h3>
-                <h4>CuckooImages</h4>
-                <p>Managing web development projects, building client websites, and implementing interactive UI components.</p>
-            </div>
-            <div class="job">
-                <h3>Front-End Developer</h3>
-                <h4>Keeladi Museum Website</h4>
-                <p>Designed and developed the official website for the Keeladi Museum with an engaging and responsive layout.</p>
-            </div>
-            <div class="job">
-                <h3>Event Website Developer</h3>
-                <h4>SEMPOZHIL</h4>
-                <p>Created a user-friendly website for the SEMPOZHIL event, ensuring smooth navigation and performance.</p>
-            </div>
-            <div class="job">
-                <h3>Facility Management Website Developer</h3>
-                <h4>Skytech International Facility Management</h4>
-                <p>Developed a professional and responsive website for a Dubai-based facility management company.</p>
-            </div>
-           
-        </div>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:sabari200412@gmail.com">sabari200412@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/sabarinathanc6374567428" target="_blank">linkedin.com/in/sabarinathanc6374567428</a></p>
     </section>
-
-    <section id="education">
-        <div class="container">
-            <h2>Education</h2>
-            <div class="education-info">
-                <h3>B.Sc. in Computer Science</h3>
-                <p>Sri Vidya Mandir Arts & Science College (2021-2024)</p>
-            </div>
-            <div class="education-info">
-                <h3>MCA (Master of Computer Applications) - Pursuing</h3>
-            </div>
-        </div>
-    </section>
-
+    
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Sabarinathan C. All rights reserved.</p>
-        </div>
+        <p>&copy; 2025 Sabarinathan C. All Rights Reserved.</p>
     </footer>
-
 </body>
 </html>
