@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -147,5 +147,165 @@
         </div>
     </footer>
 
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <xmp>
+<!doctype html>
+<script src="https://cdn.jsdelivr.net/npm/idb@3.0.2/build/idb.min.js"></script>
+<body>
+<form name="RegForm" onsubmit="return validate()" method="post">
+<table cellspacing=5 cellpadding=5 border=5>
+<tr colspan=2><td >REGISTRATION FORM</td></tr>
+<tr><td>Name:</td><td> <input type="text"
+ size="65" name="Name" /></p></td></tr>
+<tr><td>
+ <p>E-mail Address:</td><td> <input type="text"
+ size="65" name="EMail" /></p></td></tr>
+<tr>
+<td><p>Telephone: </td><td><input type="text"
+ size="65" name="phone" /></p></td></tr>
+ <br />
+<tr><td>
+ Address:</td><td> <input type="text"
+ size="65" name="Address" /></td></tr>
+<tr>
+<td>
+ <p>
+ SELECT YOUR COURSE</td><td>
+ <select type="text" value="" name="Subject">
+ <option>MCA</option>
+ <option>MBA</option>
+ <option>BCA</option>
+ <option>B.COM</option>
+
+ </select>
+</td>
+</tr>
+<tr><td>
+<button onclick="addStudent()">Add a student</button></td><td>
+<button onclick="clearStudents()">Clear student</button></td></tr>
+</table>
+<p>student list:</p>
+<ul id="listElem"></ul>
+</form>
+<script>
+let res;
+function validate() {
+    var name =
+ document.forms["RegForm"]["Name"];
+ var email =
+ document.forms["RegForm"]["EMail"];
+ var phone =
+ document.forms["RegForm"]["Telephone"];
+ var what =
+ document.forms["RegForm"]["Subject"];
+ var password =
+ document.forms["RegForm"]["Password"];
+ var address =
+ document.forms["RegForm"]["Address"];
+
+ if (name.value == "") {
+ window.alert("Please enter your name.");
+ name.focus();
+ return false;
+ }
+
+ if (address.value == "") {
+ window.alert("Please enter your address.");
+ address.focus();
+ return false;
+ }
+
+ if (email.value == "") {
+ window.alert(
+ "Please enter a valid e-mail address.");
+ email.focus();
+ return false;
+ }
+
+ if (phone.value == "") {
+ window.alert(
+ "Please enter your telephone number.");
+ phone.focus();
+ return false;
+ }
+
+
+ if (what.selectedIndex < 1) {
+ alert("Please enter your course.");
+ what.focus();
+ return false;
+ }
+ return true;
+ }
+let db;
+init();
+async function init() {
+ db = await idb.openDb('studentDb', 1, db => {
+ db.createObjectStore('students', {keyPath: 'sname'});
+ });
+ list();
+}
+async function list() {
+ let tx = db.transaction('students');
+ let studentStore = tx.objectStore('students');
+ let students = await studentStore.getAll();
+ if (students.length) {
+ listElem.innerHTML = students.map(student => `<li>
+ name: ${student.sname}, mail: ${student.email},phone: ${student.phone},address:
+${student.address}
+ course: ${student.course}</li>`).join('');
+ } else {
+ listElem.innerHTML = '<li>No students yet. Please add students.</li>'
+ }
+}
+async function clearStudents() {
+ let tx = db.transaction('students', 'readwrite');
+ await tx.objectStore('students').clear();
+ await list();
+}
+async function addStudent() {
+var sn = document.forms["RegForm"]["Name"];
+var em = document.forms["RegForm"]["EMail"];
+sname=sn.value;
+email=em.value;
+var phone= document.forms["RegForm"]["phone"].value;
+var address = document.forms["RegForm"]["Address"].value;
+var course = document.forms["RegForm"]["Subject"].value;
+ let tx = db.transaction('students', 'readwrite');
+ try {
+ await tx.objectStore('students').add({sname, email,phone,address,course});
+ await list();
+ } catch(err)
+{
+ if (err.name == 'ConstraintError') {
+ alert("Such studentexists already");
+ await addStudent();
+ } else {
+ throw err;
+ }
+ }
+}
+window.addEventListener('unhandledrejection', event => {
+ alert("Error: " + event.reason.message);
+});
+</script>
+</body>
+</html>
+    </xmp>
+    
 </body>
 </html>
