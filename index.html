@@ -2,250 +2,332 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sticky Notes Pro+</title>
+  <title>Sticky Notes with Groups</title>
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: #f8f9fa;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f0f2f5;
       margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 20px;
+      color: #333;
     }
-
-    header {
-      width: 100%;
-      padding: 1rem;
-      background: #ffcc00;
+    h1 {
       text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-bottom: 25px;
+      font-size: 28px;
+      color: #444;
     }
-
-    .top-bar {
+    #controls {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
       justify-content: center;
-      margin: 15px;
+      margin-bottom: 25px;
+      gap: 12px;
     }
-
-    .top-bar input, .top-bar button {
-      padding: 8px 12px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
-    .add-btn {
-      background: #28a745;
-      color: white;
+    button {
+      padding: 10px 16px;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
+      background: #4a90e2;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: all 0.25s ease;
     }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      width: 95%;
+    button:hover {
+      background: #357ab7;
+      transform: translateY(-2px);
+    }
+    .group {
       margin-bottom: 30px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      position: relative;
+      transition: 0.3s;
     }
-
+    .group h2 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+    .group h2 input {
+      border: none;
+      outline: none;
+      padding: 6px 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      background: #f7f7f7;
+      
+    }
+    .notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
     .note {
-      background: #fff59d;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      min-height: 200px;
+      background: #fffbea;
+      padding: 14px;
+      width: 250px;
+      min-height: 160px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      position: relative;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease;
+      justify-content: space-between;
+      transition: 0.3s;
+    }
+    .note:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+    .note-content {
+      flex: 1;
+      outline: none;
+      margin-top: 8px;
+      padding: 5px;
+      font-size: 14px;
+      line-height: 1.4em;
+    }
+    .note-content:empty:before {
+      content: attr(data-placeholder);
+      color: #aaa;
+      font-style: italic;
+    }
+    .note-footer {
+      font-size: 11px;
+      text-align: right;
+      margin-top: 8px;
+      color: #777;
     }
 
-    .note:hover {
-      transform: scale(1.02);
+    /* ✅ Premium Close Buttons */
+    .note > .delete-btn,
+    .group .delete-group {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, #ff4e50, #f9d423);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .note > .delete-btn:hover,
+    .group .delete-group:hover {
+      background: linear-gradient(135deg, #f12711, #f5af19);
+      transform: scale(1.1) rotate(90deg);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
     .toolbar {
       display: flex;
-      gap: 6px;
       flex-wrap: wrap;
+      gap: 6px;
       margin-bottom: 8px;
-      justify-content: space-between;
+      align-items: center;
     }
-
-    .toolbar button, .toolbar select, .toolbar input {
+    .toolbar button {
       padding: 4px 6px;
+      font-size: 12px;
+      background: #4a90e2;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: 0.2s;
+    }
+    .toolbar button:hover {
+      background: #357ab7;
+    }
+    .toolbar select, .toolbar input[type="color"] {
+      padding: 4px;
+      font-size: 12px;
       background: #fff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-      font-size: 0.9rem;
-    }
-
-    .note-content {
-      flex: 1;
-      outline: none;
-      font-size: 1rem;
-      background: transparent;
-      padding: 5px;
-      border-radius: 6px;
-    }
-
-    /* Placeholder effect for note text */
-    .note-content:empty:before {
-      content: attr(data-placeholder);
-      color: #777;
-      pointer-events: none;
-    }
-
-    .note-footer {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 8px;
-      font-size: 0.85rem;
-      color: #555;
-    }
-
-    .note-footer input {
-      border: none;
-      background: transparent;
-      border-bottom: 1px dashed #333;
-      padding: 2px 4px;
-      font-size: 0.85rem;
-      width: 110px;
-    }
-
-    .note-footer span {
-      font-style: italic;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>Sticky Notes Pro+</header>
-
-  <!-- Top bar -->
-  <div class="top-bar">
-    <input type="text" id="search" placeholder="🔍 Search notes..." oninput="filterNotes()">
-    <button class="add-btn" onclick="addNote()">➕ Add Note</button>
+  <h1>NOTES</h1>
+  <div id="controls">
+    <button onclick="createGroup()">Add Group + </button>
   </div>
-
-  <!-- Notes container -->
-  <div class="container" id="notes-container"></div>
+  <div id="groups"></div>
 
   <script>
-    const notesContainer = document.getElementById("notes-container");
-    const searchInput = document.getElementById("search");
-
-    // Load notes
-    function loadNotes() {
-      const savedNotes = JSON.parse(localStorage.getItem("notes") || "[]");
-      savedNotes.forEach(noteData => createNote(noteData));
+    function saveNotes() {
+      const groups = [];
+      document.querySelectorAll(".group").forEach(group => {
+        const groupName = group.querySelector("input").value;
+        const notes = [];
+        group.querySelectorAll(".note").forEach(note => {
+          notes.push({
+            content: note.querySelector(".note-content").innerHTML,
+            time: note.querySelector(".note-footer").innerText
+          });
+        });
+        groups.push({ groupName, notes });
+      });
+      localStorage.setItem("stickyNotes", JSON.stringify(groups));
     }
 
-    // Create note
-    function createNote({content="", color="#fff59d", group="", date=new Date().toLocaleString()} = {}) {
+    function loadNotes() {
+      const data = JSON.parse(localStorage.getItem("stickyNotes") || "[]");
+      data.forEach(g => {
+        const group = createGroup(g.groupName);
+        g.notes.forEach(n => createNote(group, n.content, n.time));
+      });
+    }
+
+    function createGroup(name = "") {
+      const groupsContainer = document.getElementById("groups");
+
+      const group = document.createElement("div");
+      group.className = "group";
+
+      const title = document.createElement("h2");
+      const input = document.createElement("input");
+      input.placeholder = "Enter group name...";
+      input.value = name;
+      input.oninput = saveNotes;
+      title.appendChild(input);
+
+      const addNoteBtn = document.createElement("button");
+      addNoteBtn.innerText = "Add Note +";
+      addNoteBtn.onclick = () => createNote(group);
+      title.appendChild(addNoteBtn);
+
+      group.appendChild(title);
+
+      const notesContainer = document.createElement("div");
+      notesContainer.className = "notes";
+      group.appendChild(notesContainer);
+
+      const delGroupBtn = document.createElement("button");
+      delGroupBtn.className = "delete-group";
+      delGroupBtn.innerText = "✖";
+      delGroupBtn.onclick = () => {
+        if (confirm("Are you sure want to delete this group?")) {
+          group.remove();
+          saveNotes();
+        }
+      };
+      group.appendChild(delGroupBtn);
+
+      groupsContainer.appendChild(group);
+      saveNotes();
+      return group;
+    }
+
+    function createNote(group, content = "", time = "") {
+      const notesContainer = group.querySelector(".notes");
+
       const note = document.createElement("div");
       note.className = "note";
-      note.style.background = color;
 
-      note.innerHTML = `
-        <div class="toolbar">
-          <div>
-            <button onclick="formatText(this,'bold')"><b>B</b></button>
-            <button onclick="formatText(this,'italic')"><i>I</i></button>
-            <button onclick="formatText(this,'underline')"><u>U</u></button>
-            <button onclick="formatText(this,'insertUnorderedList')">•</button>
-            <select onchange="formatText(this,'fontSize', this.value)">
-              <option value="3">Size</option>
-              <option value="2">Small</option>
-              <option value="3">Normal</option>
-              <option value="4">Large</option>
-              <option value="5">X-Large</option>
-            </select>
-            <input type="color" value="${color}" onchange="changeColor(this)">
-          </div>
-          <button onclick="deleteNote(this)" style="background:red;color:white;">✖</button>
-        </div>
-        <div class="note-content" contenteditable="true" data-placeholder="Take a note...">${content}</div>
-        <div class="note-footer">
-          <input type="text" value="${group}" onchange="saveNotes()" placeholder="Enter group...">
-          <span>Last edited: ${date}</span>
-        </div>
+      const delBtn = document.createElement("button");
+      delBtn.className = "delete-btn";
+      delBtn.innerText = "✖";
+      delBtn.onclick = () => {
+        if (confirm("Are you sure want to delete this note?")) {
+          note.remove();
+          saveNotes();
+        }
+      };
+      note.appendChild(delBtn);
+
+      const toolbar = document.createElement("div");
+      toolbar.className = "toolbar";
+
+      toolbar.innerHTML = `
+        <button onclick="formatText(this,'bold')"><b>B</b></button>
+        <button onclick="formatText(this,'italic')"><i>I</i></button>
+        <button onclick="formatText(this,'underline')"><u>U</u></button>
+        <button onclick="formatText(this,'insertUnorderedList')">•</button>
+        <button onclick="insertCheckbox(this)">☑</button>
+        <select onchange="formatText(this,'fontSize', this.value)">
+          <option value="3">Size</option>
+          <option value="2">Small</option>
+          <option value="3">Normal</option>
+          <option value="4">Large</option>
+          <option value="5">X-Large</option>
+        </select>
+        <input type="color" onchange="changeColor(this)">
       `;
+      note.appendChild(toolbar);
 
-      const contentDiv = note.querySelector(".note-content");
-      contentDiv.addEventListener("input", () => {
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "note-content";
+      contentDiv.contentEditable = "true";
+      contentDiv.setAttribute("data-placeholder", "Take a note...");
+      contentDiv.innerHTML = content;
+      contentDiv.oninput = () => {
         updateLastEdited(note);
         saveNotes();
-      });
+      };
+      note.appendChild(contentDiv);
 
-      note.querySelector(".note-footer input").addEventListener("input", saveNotes);
+      const footer = document.createElement("div");
+      footer.className = "note-footer";
+      footer.innerText = time || "Last edited: never";
+      note.appendChild(footer);
 
       notesContainer.appendChild(note);
       saveNotes();
     }
 
-    // Add note
-    function addNote() {
-      createNote({date:new Date().toLocaleString()});
+    function updateLastEdited(note) {
+      const footer = note.querySelector(".note-footer");
+      footer.innerText = "Last edited: " + new Date().toLocaleString();
     }
 
-    // Delete note
-    function deleteNote(btn) {
-      btn.closest(".note").remove();
-      saveNotes();
-    }
-
-    // Save all notes
-    function saveNotes() {
-      const notes = Array.from(document.querySelectorAll(".note")).map(note => ({
-        content: note.querySelector(".note-content").innerHTML,
-        color: note.style.background,
-        group: note.querySelector(".note-footer input").value,
-        date: note.querySelector(".note-footer span").innerText.replace("Last edited: ","")
-      }));
-      localStorage.setItem("notes", JSON.stringify(notes));
-    }
-
-    // Text formatting (per note)
-    function formatText(el, cmd, value = null) {
+    function formatText(el, command, value = null) {
       const note = el.closest(".note");
       const content = note.querySelector(".note-content");
       content.focus();
-      document.execCommand(cmd, false, value);
+      document.execCommand(command, false, value);
       updateLastEdited(note);
       saveNotes();
     }
 
-    // Change note color
-    function changeColor(input) {
-      const note = input.closest(".note");
-      note.style.background = input.value;
+    function changeColor(el) {
+      formatText(el, "foreColor", el.value);
+    }
+
+    function insertCheckbox(el) {
+      const note = el.closest(".note");
+      const content = note.querySelector(".note-content");
+
+      const checkboxHTML = `
+        <div>
+          <input type="checkbox" onclick="this.nextElementSibling.style.textDecoration=this.checked?'line-through':'none'; saveNotes();" />
+          <span contenteditable="true">Enter text</span>
+        </div>
+      `;
+
+      content.focus();
+      document.execCommand("insertHTML", false, checkboxHTML);
       updateLastEdited(note);
       saveNotes();
-    }
-
-    // Update last edited time
-    function updateLastEdited(note) {
-      const time = new Date().toLocaleString();
-      note.querySelector(".note-footer span").innerText = `Last edited: ${time}`;
-    }
-
-    // Filter notes
-    function filterNotes() {
-      const searchVal = searchInput.value.toLowerCase();
-      Array.from(document.querySelectorAll(".note")).forEach(note => {
-        const text = note.querySelector(".note-content").innerText.toLowerCase();
-        const group = note.querySelector(".note-footer input").value.toLowerCase();
-        const matches = text.includes(searchVal) || group.includes(searchVal);
-        note.style.display = matches ? "flex" : "none";
-      });
     }
 
     loadNotes();
