@@ -1,311 +1,247 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sabarinathan C - Front-End Developer</title>
-    <style>
-        /* General Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 3em;
-        }
-
-        header p {
-            font-size: 1.2em;
-        }
-
-        header .contact-info a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        section {
-            background-color: white;
-            margin: 20px 0;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        section h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        ul li {
-            margin: 10px 0;
-            line-height: 1.5;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="container">
-            <h1>Sabarinathan C</h1>
-            <p>Front-End Developer | Web Developer</p>
-            <div class="contact-info">
-                <a href="mailto:sabari200412@gmail.com">sabari200412@gmail.com</a> | 
-                <a href="tel:+916374567428">+91 6374567428</a> | 
-                <a href="https://www.linkedin.com/in/sabarinathanc6374567428/" target="_blank">LinkedIn</a>
-            </div>
-        </div>
-    </header>
-
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>As a dedicated Front-End Developer and web enthusiast, I specialize in crafting visually appealing and interactive web experiences. With expertise in HTML, CSS, JavaScript, and React.js, I focus on building user-friendly and responsive websites that enhance user engagement.</p>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <h2>Skills</h2>
-            <ul>
-                <li><strong>Front-End Development:</strong> HTML5, CSS3, JavaScript (ES6+), React.js</li>
-                <li><strong>Responsive Design:</strong> Ensuring cross-device compatibility and mobile-friendly UI</li>
-                <li><strong>Animations & Effects:</strong> AOS (Animate On Scroll), CSS animations</li>
-                <li><strong>Web Optimization:</strong> Enhancing performance, accessibility, and SEO</li>
-                <li><strong>Version Control:</strong> Git, GitHub</li>
-                <li><strong>Tools & Design:</strong> Figma, Adobe Photoshop</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <ul>
-                <li><strong>Keeladi Museum Website:</strong> Designed and developed an engaging and responsive website for the museum.</li>
-                <li><strong>Sempozhil Event Website:</strong> Created a performance-optimized event platform.</li>
-                <li><strong>SkytechFM Facility Management Platform:</strong> Developed a professional web solution with a mobile-first approach.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="education">
-        <div class="container">
-            <h2>Education</h2>
-            <div class="education-info">
-                <h3>B.Sc. in Computer Science</h3>
-                <p>Periyar University, Salem (2021-2024)</p>
-            </div>
-            <div class="education-info">
-                <h3>MCA (Master of Computer Applications) - Pursuing</h3>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Sabarinathan C. All rights reserved.</p>
-        </div>
-    </footer>
-
-</body>
-</html> -->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Notes Pro+</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      padding: 1rem;
+      background: #ffcc00;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .top-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 15px;
+    }
+
+    .top-bar input, .top-bar select, .top-bar button {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .add-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      width: 95%;
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #fff59d;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .note:hover {
+      transform: scale(1.02);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+      justify-content: space-between;
+    }
+
+    .toolbar button, .toolbar select, .toolbar input {
+      padding: 4px 6px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      font-size: 0.9rem;
+    }
+
+    .note-content {
+      flex: 1;
+      outline: none;
+      font-size: 1rem;
+      background: transparent;
+      padding: 5px;
+      border-radius: 6px;
+    }
+
+    .note-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .note-footer input {
+      border: none;
+      background: transparent;
+      border-bottom: 1px dashed #333;
+      padding: 2px 4px;
+      font-size: 0.85rem;
+      width: 100px;
+    }
+
+    .note-footer span {
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
-    
+  <header>Sticky Notes Pro+</header>
 
-    <xmp>
-<!doctype html>
-<script src="https://cdn.jsdelivr.net/npm/idb@3.0.2/build/idb.min.js"></script>
-<body>
-<form name="RegForm" onsubmit="return validate()" method="post">
-<table cellspacing=5 cellpadding=5 border=5>
-<tr colspan=2><td >REGISTRATION FORM</td></tr>
-<tr><td>Name:</td><td> <input type="text"
- size="65" name="Name" /></p></td></tr>
-<tr><td>
- <p>E-mail Address:</td><td> <input type="text"
- size="65" name="EMail" /></p></td></tr>
-<tr>
-<td><p>Telephone: </td><td><input type="text"
- size="65" name="phone" /></p></td></tr>
- <br />
-<tr><td>
- Address:</td><td> <input type="text"
- size="65" name="Address" /></td></tr>
-<tr>
-<td>
- <p>
- SELECT YOUR COURSE</td><td>
- <select type="text" value="" name="Subject">
- <option>MCA</option>
- <option>MBA</option>
- <option>BCA</option>
- <option>B.COM</option>
+  <!-- Top bar -->
+  <div class="top-bar">
+    <input type="text" id="search" placeholder="🔍 Search notes..." oninput="filterNotes()">
+    <button class="add-btn" onclick="addNote()">➕ Add Note</button>
+  </div>
 
- </select>
-</td>
-</tr>
-<tr><td>
-<button onclick="addStudent()">Add a student</button></td><td>
-<button onclick="clearStudents()">Clear student</button></td></tr>
-</table>
-<p>student list:</p>
-<ul id="listElem"></ul>
-</form>
-<script>
-let res;
-function validate() {
-    var name =
- document.forms["RegForm"]["Name"];
- var email =
- document.forms["RegForm"]["EMail"];
- var phone =
- document.forms["RegForm"]["Telephone"];
- var what =
- document.forms["RegForm"]["Subject"];
- var password =
- document.forms["RegForm"]["Password"];
- var address =
- document.forms["RegForm"]["Address"];
+  <!-- Notes container -->
+  <div class="container" id="notes-container"></div>
 
- if (name.value == "") {
- window.alert("Please enter your name.");
- name.focus();
- return false;
- }
+  <script>
+    const notesContainer = document.getElementById("notes-container");
+    const searchInput = document.getElementById("search");
 
- if (address.value == "") {
- window.alert("Please enter your address.");
- address.focus();
- return false;
- }
+    // Load notes
+    function loadNotes() {
+      const savedNotes = JSON.parse(localStorage.getItem("notes") || "[]");
+      savedNotes.forEach(noteData => createNote(noteData));
+    }
 
- if (email.value == "") {
- window.alert(
- "Please enter a valid e-mail address.");
- email.focus();
- return false;
- }
+    // Create note
+    function createNote({content="Take a note...", color="#fff59d", group="General", date=new Date().toLocaleString()} = {}) {
+      const note = document.createElement("div");
+      note.className = "note";
+      note.style.background = color;
 
- if (phone.value == "") {
- window.alert(
- "Please enter your telephone number.");
- phone.focus();
- return false;
- }
+      note.innerHTML = `
+        <div class="toolbar">
+          <div>
+            <button onclick="formatText(this,'bold')"><b>B</b></button>
+            <button onclick="formatText(this,'italic')"><i>I</i></button>
+            <button onclick="formatText(this,'underline')"><u>U</u></button>
+            <button onclick="formatText(this,'insertUnorderedList')">•</button>
+            <select onchange="formatText(this,'fontSize', this.value)">
+              <option value="3">Size</option>
+              <option value="2">Small</option>
+              <option value="3">Normal</option>
+              <option value="4">Large</option>
+              <option value="5">X-Large</option>
+            </select>
+            <input type="color" value="${color}" onchange="changeColor(this)">
+          </div>
+          <button onclick="deleteNote(this)" style="background:red;color:white;">✖</button>
+        </div>
+        <div class="note-content" contenteditable="true">${content}</div>
+        <div class="note-footer">
+          <input type="text" value="${group}" onchange="saveNotes()" placeholder="Group">
+          <span>Last edited: ${date}</span>
+        </div>
+      `;
 
+      const contentDiv = note.querySelector(".note-content");
+      contentDiv.addEventListener("input", () => {
+        updateLastEdited(note);
+        saveNotes();
+      });
 
- if (what.selectedIndex < 1) {
- alert("Please enter your course.");
- what.focus();
- return false;
- }
- return true;
- }
-let db;
-init();
-async function init() {
- db = await idb.openDb('studentDb', 1, db => {
- db.createObjectStore('students', {keyPath: 'sname'});
- });
- list();
-}
-async function list() {
- let tx = db.transaction('students');
- let studentStore = tx.objectStore('students');
- let students = await studentStore.getAll();
- if (students.length) {
- listElem.innerHTML = students.map(student => `<li>
- name: ${student.sname}, mail: ${student.email},phone: ${student.phone},address:
-${student.address}
- course: ${student.course}</li>`).join('');
- } else {
- listElem.innerHTML = '<li>No students yet. Please add students.</li>'
- }
-}
-async function clearStudents() {
- let tx = db.transaction('students', 'readwrite');
- await tx.objectStore('students').clear();
- await list();
-}
-async function addStudent() {
-var sn = document.forms["RegForm"]["Name"];
-var em = document.forms["RegForm"]["EMail"];
-sname=sn.value;
-email=em.value;
-var phone= document.forms["RegForm"]["phone"].value;
-var address = document.forms["RegForm"]["Address"].value;
-var course = document.forms["RegForm"]["Subject"].value;
- let tx = db.transaction('students', 'readwrite');
- try {
- await tx.objectStore('students').add({sname, email,phone,address,course});
- await list();
- } catch(err)
-{
- if (err.name == 'ConstraintError') {
- alert("Such studentexists already");
- await addStudent();
- } else {
- throw err;
- }
- }
-}
-window.addEventListener('unhandledrejection', event => {
- alert("Error: " + event.reason.message);
-});
-</script>
-</body>
-</html>
-    </xmp>
-    
+      note.querySelector("input").addEventListener("input", saveNotes);
+
+      notesContainer.appendChild(note);
+      saveNotes();
+    }
+
+    // Add note
+    function addNote() {
+      createNote({date:new Date().toLocaleString()});
+    }
+
+    // Delete note
+    function deleteNote(btn) {
+      btn.closest(".note").remove();
+      saveNotes();
+    }
+
+    // Save all notes
+    function saveNotes() {
+      const notes = Array.from(document.querySelectorAll(".note")).map(note => ({
+        content: note.querySelector(".note-content").innerHTML,
+        color: note.style.background,
+        group: note.querySelector(".note-footer input").value,
+        date: note.querySelector(".note-footer span").innerText.replace("Last edited: ","")
+      }));
+      localStorage.setItem("notes", JSON.stringify(notes));
+    }
+
+    // Text formatting (per note)
+    function formatText(el, cmd, value = null) {
+      const note = el.closest(".note");
+      const content = note.querySelector(".note-content");
+      content.focus();
+      document.execCommand(cmd, false, value);
+      updateLastEdited(note);
+      saveNotes();
+    }
+
+    // Change note color
+    function changeColor(input) {
+      const note = input.closest(".note");
+      note.style.background = input.value;
+      updateLastEdited(note);
+      saveNotes();
+    }
+
+    // Update last edited time
+    function updateLastEdited(note) {
+      const time = new Date().toLocaleString();
+      note.querySelector(".note-footer span").innerText = `Last edited: ${time}`;
+    }
+
+    // Filter notes
+    function filterNotes() {
+      const searchVal = searchInput.value.toLowerCase();
+      Array.from(document.querySelectorAll(".note")).forEach(note => {
+        const text = note.querySelector(".note-content").innerText.toLowerCase();
+        const group = note.querySelector(".note-footer input").value.toLowerCase();
+        const matches = text.includes(searchVal) || group.includes(searchVal);
+        note.style.display = matches ? "flex" : "none";
+      });
+    }
+
+    loadNotes();
+  </script>
 </body>
 </html>
