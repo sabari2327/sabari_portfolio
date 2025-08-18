@@ -33,7 +33,7 @@
       margin: 15px;
     }
 
-    .top-bar input, .top-bar select, .top-bar button {
+    .top-bar input, .top-bar button {
       padding: 8px 12px;
       border: 1px solid #ddd;
       border-radius: 6px;
@@ -97,6 +97,13 @@
       border-radius: 6px;
     }
 
+    /* Placeholder effect */
+    .note-content:empty:before {
+      content: attr(data-placeholder);
+      color: #777;
+      pointer-events: none;
+    }
+
     .note-footer {
       display: flex;
       justify-content: space-between;
@@ -142,7 +149,7 @@
     }
 
     // Create note
-    function createNote({content="Take a note...", color="#fff59d", group="General", date=new Date().toLocaleString()} = {}) {
+    function createNote({content="", color="#fff59d", group="General", date=new Date().toLocaleString()} = {}) {
       const note = document.createElement("div");
       note.className = "note";
       note.style.background = color;
@@ -165,7 +172,7 @@
           </div>
           <button onclick="deleteNote(this)" style="background:red;color:white;">✖</button>
         </div>
-        <div class="note-content" contenteditable="true">${content}</div>
+        <div class="note-content" contenteditable="true" data-placeholder="Take a note...">${content}</div>
         <div class="note-footer">
           <input type="text" value="${group}" onchange="saveNotes()" placeholder="Group">
           <span>Last edited: ${date}</span>
@@ -178,7 +185,7 @@
         saveNotes();
       });
 
-      note.querySelector("input").addEventListener("input", saveNotes);
+      note.querySelector(".note-footer input").addEventListener("input", saveNotes);
 
       notesContainer.appendChild(note);
       saveNotes();
