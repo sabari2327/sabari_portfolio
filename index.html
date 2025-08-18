@@ -97,7 +97,7 @@
       border-radius: 6px;
     }
 
-    /* Placeholder effect */
+    /* Placeholder effect for note text */
     .note-content:empty:before {
       content: attr(data-placeholder);
       color: #777;
@@ -118,7 +118,7 @@
       border-bottom: 1px dashed #333;
       padding: 2px 4px;
       font-size: 0.85rem;
-      width: 100px;
+      width: 110px;
     }
 
     .note-footer span {
@@ -149,7 +149,7 @@
     }
 
     // Create note
-    function createNote({content="", color="#fff59d", group="General", date=new Date().toLocaleString()} = {}) {
+    function createNote({content="", color="#fff59d", group="", date=new Date().toLocaleString()} = {}) {
       const note = document.createElement("div");
       note.className = "note";
       note.style.background = color;
@@ -174,7 +174,7 @@
         </div>
         <div class="note-content" contenteditable="true" data-placeholder="Take a note...">${content}</div>
         <div class="note-footer">
-          <input type="text" value="${group}" onchange="saveNotes()" placeholder="Group">
+          <input type="text" value="${group}" onchange="saveNotes()" placeholder="Enter group...">
           <span>Last edited: ${date}</span>
         </div>
       `;
