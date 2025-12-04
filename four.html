@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DHT11 Temperature & Humidity Sensor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Interface DHT11 Sensor with Arduino</h1>
+    </header>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="info-card">
+        <h3>Objective</h3>
+        <p>To interface DHT11 temperature and humidity sensor with Arduino and display the readings on Serial Monitor.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Components</h3>
+        <ul>
+          <li>1 x Arduino UNO</li>
+          <li>1 x DHT11 Sensor</li>
+          <li>1 x Breadboard</li>
+          <li>Jumper Wires</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Connections</h3>
+        <ul>
+          <li><strong>VCC</strong> - 5V</li>
+          <li><strong>GND</strong> - GND</li>
+          <li><strong>DATA</strong> - A0</li>
+        </ul>
+      </div>
+
+      <div class="info-card code-card">
+        <h3>Arduino Code</h3>
+        <pre><code>#include &lt;DHT.h&gt;
+
+#define DHTPIN A0
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print("% ");
+
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.println(" *C");
+
+  delay(2000);
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
