@@ -63,21 +63,31 @@
 
       <div class="info-card code-card">
         <h3>Arduino Code</h3>
-        <pre><code>const int buttonPin = 13;
-const int ledPin = 9;
+        <pre><code>#include &lt;DHT.h&gt;
+
+#define DHTPIN A0
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
-  pinMode(ledPin, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP);
+  Serial.begin(9600);
+  dht.begin();
 }
 
 void loop() {
-  int buttonState = digitalRead(buttonPin);
-  if (buttonState == LOW) {
-    digitalWrite(ledPin, HIGH);
-  } else {
-    digitalWrite(ledPin, LOW);
-  }
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print("% ");
+
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.println(" *C");
+
+  delay(2000);
 }</code></pre>
       </div>
     </div>
