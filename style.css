@@ -13,13 +13,13 @@ body {
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 header h1 {
@@ -28,530 +28,139 @@ header h1 {
   font-weight: 400;
 }
 
-/* Circuit Container */
-.circuit-container {
-  position: relative;
-  background: #2d3748;
-  border-radius: 20px;
-  padding: 30px;
+/* Circuit Wrapper */
+.circuit-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
   margin-bottom: 30px;
-  display: flex;
-  gap: 30px;
-  align-items: flex-start;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  min-height: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-/* ==================== ARDUINO BOARD ==================== */
-.arduino {
+/* Circuit Image Container - relative positioning for hotspots */
+.circuit-image-container {
   position: relative;
-  width: 220px;
-  height: 380px;
-  background: linear-gradient(145deg, #0891b2, #0e7490);
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  flex-shrink: 0;
+  display: inline-block;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
 }
 
-.arduino-usb {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 35px;
-  height: 14px;
-  background: linear-gradient(180deg, #9ca3af, #6b7280);
-  border-radius: 2px;
-  border: 1px solid #4b5563;
+.circuit-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
 }
 
-.arduino-power-jack {
+/* LED Glow Overlay - Position this over the LED in the image */
+.led-glow {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  /* X and Y position - centered on the red LED */
+  left: 67%;
+  top: 50%;
+  /* Size of the glow area */
   width: 25px;
-  height: 10px;
-  background: #1f2937;
-  border-radius: 2px;
-}
-
-.arduino-reset-btn {
-  position: absolute;
-  top: 35px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  background: #dc2626;
+  height: 35px;
+  /* Initially invisible */
+  background: transparent;
   border-radius: 50%;
+  pointer-events: none;
+  transition: all 0.1s ease;
+  transform: translate(-50%, -50%);
 }
 
-.arduino-chip {
+/* LED Glow when active */
+.led-glow.active {
+  background: radial-gradient(circle,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 30, 30, 0.9) 40%,
+    rgba(255, 80, 80, 0.3) 70%,
+    transparent 100%
+  );
+  width: 40px;
+  height: 40px;
+  box-shadow:
+    0 0 10px 5px rgba(255, 0, 0, 0.7),
+    0 0 20px 10px rgba(255, 0, 0, 0.4),
+    0 0 30px 15px rgba(255, 0, 0, 0.2);
+  animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Button Hotspot - Position this over the button in the image */
+.button-hotspot {
   position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
+  /* X and Y position - centered on the push button */
+  left: 83%;
+  top: 61%;
+  /* Size of clickable area */
+  width: 45px;
   height: 45px;
-  background: #1f2937;
-  border-radius: 4px;
+  /* Invisible but clickable */
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease;
+}
+
+.button-hotspot:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.button-hotspot:active {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+
+/* Status Display */
+.status-display {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 10px;
 }
 
-.arduino-chip span {
-  color: #6b7280;
-  font-size: 7px;
-  font-weight: bold;
-}
-
-.arduino-crystal {
-  position: absolute;
-  top: 90px;
-  right: 15px;
-  width: 15px;
-  height: 6px;
-  background: linear-gradient(90deg, #9ca3af, #d1d5db, #9ca3af);
-  border-radius: 2px;
-}
-
-.arduino-logo {
-  position: absolute;
-  top: 140px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-.arduino-logo .infinity {
-  font-size: 22px;
-  color: #14b8a6;
-  line-height: 1;
-}
-
-.arduino-logo span {
-  display: block;
-  color: #fff;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-/* Built-in LEDs */
-.builtin-leds {
-  position: absolute;
-  top: 55px;
-  right: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.builtin-led {
-  width: 5px;
-  height: 5px;
+.status-led {
+  width: 20px;
+  height: 20px;
+  background: #333;
   border-radius: 50%;
+  border: 3px solid #222;
+  transition: all 0.1s ease;
 }
 
-.power-led { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
-.tx-led { background: #eab308; }
-.rx-led { background: #eab308; }
-.l-led { background: #22c55e; }
-
-/* Digital Pins Right Side */
-.digital-pins-right {
-  position: absolute;
-  top: 30px;
-  right: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.pin-row {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.pin-label-right {
-  font-size: 7px;
-  color: #fff;
-  width: 28px;
-  text-align: right;
-}
-
-.pin {
-  width: 10px;
-  height: 10px;
-  background: linear-gradient(145deg, #fbbf24, #d97706);
-  border-radius: 2px;
-}
-
-.pin-active {
-  background: linear-gradient(145deg, #ef4444, #dc2626);
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
-}
-
-.gnd-pin {
-  background: linear-gradient(145deg, #374151, #1f2937);
-}
-
-/* Power Pins Left Side */
-.power-pins-left {
-  position: absolute;
-  bottom: 30px;
-  left: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.pin-row-left {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.pin-label-left {
-  font-size: 7px;
-  color: #fff;
-  width: 32px;
-}
-
-/* ==================== BREADBOARD ==================== */
-.breadboard {
-  position: relative;
-  background: #f5f5f4;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  flex: 1;
-  max-width: 550px;
-}
-
-/* Power Rail Sections */
-.power-rail-section {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 5px;
-  padding: 4px 8px;
-  background: #fff;
-  border-radius: 4px;
-}
-
-.power-rail-section.bottom-rail {
-  margin-bottom: 0;
-  margin-top: 5px;
-}
-
-.rail-indicator {
-  font-size: 10px;
-  font-weight: bold;
-  width: 12px;
-  text-align: center;
-}
-
-.red-indicator { color: #dc2626; }
-.blue-indicator { color: #2563eb; }
-
-.rail-holes-row {
-  display: flex;
-  gap: 3px;
-  flex: 1;
-  align-items: center;
-}
-
-.rail-hole {
-  width: 7px;
-  height: 7px;
-  background: #1f2937;
-  border-radius: 50%;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-.rail-gap {
-  width: 8px;
-}
-
-.rail-line {
-  width: 4px;
-  height: 16px;
-  border-radius: 2px;
-}
-
-.red-line { background: #dc2626; }
-.blue-line { background: #2563eb; }
-
-/* Main Grid */
-.main-grid {
-  background: #fff;
-  border-radius: 4px;
-  padding: 8px;
-}
-
-.col-numbers {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 3px;
-  padding-left: 15px;
-}
-
-.col-numbers span {
-  width: 12px;
-  font-size: 6px;
-  color: #9ca3af;
-  text-align: center;
-}
-
-.grid-row {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 3px;
-  align-items: center;
-}
-
-.row-label {
-  width: 12px;
-  font-size: 8px;
-  color: #6b7280;
-  font-weight: bold;
-  text-align: center;
-}
-
-.hole {
-  width: 9px;
-  height: 9px;
-  background: #1f2937;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-.center-divider {
-  height: 12px;
-  background: linear-gradient(90deg, #e5e7eb 0%, #d1d5db 50%, #e5e7eb 100%);
-  margin: 8px 0;
-  border-radius: 2px;
-}
-
-/* ==================== LED COMPONENT ==================== */
-.led-component {
-  position: absolute;
-  top: 82px;
-  left: 55px;
-  z-index: 10;
-}
-
-.led-body {
-  width: 16px;
-  height: 22px;
-  background: linear-gradient(180deg, #fca5a5 0%, #ef4444 40%, #dc2626 100%);
-  border-radius: 8px 8px 4px 4px;
-  position: relative;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-.led-dome {
-  position: absolute;
-  top: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle at 30% 30%, #fff, transparent);
-  border-radius: 50%;
-  opacity: 0.4;
-}
-
-.led-glow {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 30px;
-  background: radial-gradient(circle, rgba(255, 0, 0, 0) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  transition: all 0.1s;
-}
-
-.led-component.led-on .led-body {
-  background: linear-gradient(180deg, #fef2f2 0%, #ff0000 40%, #dc2626 100%);
+.status-led.active {
+  background: #ff0000;
   box-shadow: 0 0 20px #ff0000, 0 0 40px rgba(255, 0, 0, 0.5);
 }
 
-.led-component.led-on .led-glow {
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.8) 0%, transparent 70%);
-  width: 60px;
-  height: 60px;
-}
-
-.led-legs {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-.led-leg {
-  width: 2px;
-  background: #6b7280;
-}
-
-.long-leg { height: 45px; }
-.short-leg { height: 35px; }
-
-/* ==================== PUSH BUTTON ==================== */
-.push-button {
-  position: absolute;
-  top: 85px;
-  left: 265px;
-  z-index: 10;
-  cursor: pointer;
-}
-
-.button-body {
-  width: 24px;
-  height: 24px;
-  background: #1f2937;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-  transition: transform 0.1s;
-}
-
-.button-top {
-  width: 14px;
-  height: 14px;
-  background: linear-gradient(145deg, #6b7280, #4b5563);
-  border-radius: 50%;
-  transition: all 0.1s;
-}
-
-.push-button:hover .button-body {
-  transform: scale(1.05);
-}
-
-.push-button:active .button-top {
-  background: linear-gradient(145deg, #4b5563, #374151);
-  transform: translateY(2px);
-}
-
-/* ==================== RESISTOR ==================== */
-.resistor {
-  position: absolute;
-  top: 148px;
-  left: 65px;
-  display: flex;
-  align-items: center;
-  z-index: 10;
-}
-
-.resistor-wire {
-  width: 20px;
-  height: 2px;
-  background: #6b7280;
-}
-
-.resistor-body {
-  width: 45px;
-  height: 14px;
-  background: linear-gradient(180deg, #d4c4a8 0%, #c4b498 50%, #b4a488 100%);
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 6px;
-}
-
-.band {
-  width: 4px;
-  height: 12px;
-  border-radius: 1px;
-}
-
-.band1 { background: #92400e; }
-.band2 { background: #000; }
-.band3 { background: #dc2626; }
-.band4 { background: linear-gradient(180deg, #fbbf24, #d97706); }
-
-/* ==================== WIRES SVG ==================== */
-.wires-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.wire {
-  fill: none;
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.wire-red {
-  stroke: #dc2626;
-  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.3));
-}
-
-.wire-blue {
-  stroke: #2563eb;
-  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.3));
-}
-
-.wire-black {
-  stroke: #1f2937;
-  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.3));
-}
-
-/* ==================== WIRE LABELS ==================== */
-.wire-labels {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 20;
-}
-
-.label {
-  position: absolute;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
+.status-text {
+  font-size: 1.1rem;
   color: #fff;
+  font-weight: 500;
 }
 
-.label-pin9 {
-  top: 37px;
-  left: 270px;
-  background: #dc2626;
-}
-
-.label-pin13 {
-  top: 25px;
-  left: 430px;
-  background: #2563eb;
-}
-
-.label-gnd {
-  top: 13px;
-  right: 110px;
-  background: #1f2937;
-}
-
-/* ==================== INFO SECTION ==================== */
+/* Info Section */
 .info-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -617,50 +226,18 @@ header h1 {
   line-height: 1.4;
 }
 
-/* ==================== STATUS BAR ==================== */
-.status-bar {
-  background: rgba(34, 211, 238, 0.1);
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  border: 1px solid rgba(34, 211, 238, 0.2);
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-
-.status-led {
-  width: 16px;
-  height: 16px;
-  background: #374151;
-  border-radius: 50%;
-  border: 2px solid #1f2937;
-  transition: all 0.1s;
-}
-
-.status-led.active {
-  background: #ff0000;
-  box-shadow: 0 0 15px #ff0000;
-}
-
-.status-text {
-  font-size: 1rem;
-  color: #fff;
-}
-
-/* ==================== RESPONSIVE ==================== */
+/* Responsive - Tablet */
 @media (max-width: 900px) {
-  .circuit-container {
-    flex-direction: column;
-    align-items: center;
+  .container {
+    padding: 10px;
   }
 
-  .wires-svg, .wire-labels {
-    display: none;
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .circuit-wrapper {
+    padding: 15px;
   }
 
   .code-card {
@@ -668,12 +245,146 @@ header h1 {
   }
 }
 
-/* LED Animation */
-@keyframes glow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+/* Responsive - Mobile */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  header {
+    margin-bottom: 15px;
+  }
+
+  header h1 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .circuit-wrapper {
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+
+  .circuit-image-container {
+    max-width: 100%;
+  }
+
+  /* Scale button hotspot for mobile */
+  .button-hotspot {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Scale LED glow for mobile */
+  .led-glow {
+    width: 18px;
+    height: 25px;
+  }
+
+  .led-glow.active {
+    width: 30px;
+    height: 30px;
+    box-shadow:
+      0 0 8px 4px rgba(255, 0, 0, 0.7),
+      0 0 15px 8px rgba(255, 0, 0, 0.4);
+  }
+
+  /* Status display */
+  .status-display {
+    padding: 10px;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .status-led {
+    width: 14px;
+    height: 14px;
+    border-width: 2px;
+  }
+
+  .status-text {
+    font-size: 0.85rem;
+  }
+
+  /* Info section */
+  .info-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .info-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .info-card h3 {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .info-card p,
+  .info-card li {
+    font-size: 0.8rem;
+  }
+
+  .code-card pre {
+    padding: 8px;
+  }
+
+  .code-card code {
+    font-size: 9px;
+    line-height: 1.3;
+  }
 }
 
-.led-component.led-on .led-body {
-  animation: glow 0.4s ease-in-out infinite;
+/* Extra small devices */
+@media (max-width: 400px) {
+  body {
+    padding: 5px;
+  }
+
+  header h1 {
+    font-size: 0.9rem;
+  }
+
+  .circuit-wrapper {
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  .button-hotspot {
+    width: 24px;
+    height: 24px;
+  }
+
+  .led-glow.active {
+    width: 25px;
+    height: 25px;
+  }
+
+  .status-display {
+    padding: 8px;
+  }
+
+  .status-text {
+    font-size: 0.75rem;
+  }
+
+  .info-card {
+    padding: 10px;
+  }
+
+  .info-card h3 {
+    font-size: 0.85rem;
+  }
+
+  .info-card p,
+  .info-card li {
+    font-size: 0.75rem;
+  }
+
+  .code-card code {
+    font-size: 8px;
+  }
 }
