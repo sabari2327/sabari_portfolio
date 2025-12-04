@@ -2,335 +2,484 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sticky Notes with Groups</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f0f2f5;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 28px;
-      color: #444;
-    }
-    #controls {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 25px;
-      gap: 12px;
-    }
-    button {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #4a90e2;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 500;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      transition: all 0.25s ease;
-    }
-    button:hover {
-      background: #357ab7;
-      transform: translateY(-2px);
-    }
-    .group {
-      margin-bottom: 30px;
-      padding: 20px;
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      position: relative;
-      transition: 0.3s;
-    }
-    .group h2 {
-      margin: 0 0 15px 0;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 600;
-    }
-    .group h2 input {
-      border: none;
-      outline: none;
-      padding: 6px 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      background: #f7f7f7;
-      
-    }
-    .notes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-    .note {
-      background: #fffbea;
-      padding: 14px;
-      width: 250px;
-      min-height: 160px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: 0.3s;
-    }
-    .note:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-    }
-    .note-content {
-      flex: 1;
-      outline: none;
-      margin-top: 8px;
-      padding: 5px;
-      font-size: 14px;
-      line-height: 1.4em;
-    }
-    .note-content:empty:before {
-      content: attr(data-placeholder);
-      color: #aaa;
-      font-style: italic;
-    }
-    .note-footer {
-      font-size: 11px;
-      text-align: right;
-      margin-top: 8px;
-      color: #777;
-    }
-
-    /* ✅ Premium Close Buttons */
-    .note > .delete-btn,
-    .group .delete-group {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      border: none;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #fff;
-      background: linear-gradient(135deg, #ff4e50, #f9d423);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .note > .delete-btn:hover,
-    .group .delete-group:hover {
-      background: linear-gradient(135deg, #f12711, #f5af19);
-      transform: scale(1.1) rotate(90deg);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-      align-items: center;
-    }
-    .toolbar button {
-      padding: 4px 6px;
-      font-size: 12px;
-      background: #4a90e2;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      color: #fff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-      transition: 0.2s;
-    }
-    .toolbar button:hover {
-      background: #357ab7;
-    }
-    .toolbar select, .toolbar input[type="color"] {
-      padding: 4px;
-      font-size: 12px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arduino Push Button LED Circuit</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>NOTES</h1>
-  <div id="controls">
-    <button onclick="createGroup()">Add Group + </button>
+  <div class="container">
+    <header>
+      <h1>Interface Push Button with Arduino to Control LED</h1>
+    </header>
+
+    <div class="circuit-container">
+      <!-- Arduino UNO Board -->
+      <div class="arduino">
+        <div class="arduino-usb"></div>
+        <div class="arduino-power-jack"></div>
+        <div class="arduino-reset-btn"></div>
+        <div class="arduino-chip">
+          <span>ATMEGA328P</span>
+        </div>
+        <div class="arduino-crystal"></div>
+        <div class="arduino-logo">
+          <div class="infinity">&#8734;</div>
+          <span>Arduino UNO</span>
+        </div>
+
+        <!-- Digital Pins (Right Side) -->
+        <div class="digital-pins-right">
+          <div class="pin-row">
+            <span class="pin-label-right">AREF</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">GND</span>
+            <div class="pin gnd-pin" id="arduino-gnd"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">13</span>
+            <div class="pin pin-active" id="pin13"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">12</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">~11</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">~10</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">~9</span>
+            <div class="pin pin-active" id="pin9"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">8</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">7</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">~6</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">~5</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">4</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">~3</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">2</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">TX</span>
+            <div class="pin"></div>
+          </div>
+          <div class="pin-row">
+            <span class="pin-label-right">RX</span>
+            <div class="pin"></div>
+          </div>
+        </div>
+
+        <!-- Power Pins (Left Side) -->
+        <div class="power-pins-left">
+          <div class="pin-row-left">
+            <div class="pin"></div>
+            <span class="pin-label-left">IOREF</span>
+          </div>
+          <div class="pin-row-left">
+            <div class="pin"></div>
+            <span class="pin-label-left">RESET</span>
+          </div>
+          <div class="pin-row-left">
+            <div class="pin"></div>
+            <span class="pin-label-left">3.3V</span>
+          </div>
+          <div class="pin-row-left">
+            <div class="pin"></div>
+            <span class="pin-label-left">5V</span>
+          </div>
+          <div class="pin-row-left">
+            <div class="pin gnd-pin"></div>
+            <span class="pin-label-left">GND</span>
+          </div>
+          <div class="pin-row-left">
+            <div class="pin gnd-pin"></div>
+            <span class="pin-label-left">GND</span>
+          </div>
+          <div class="pin-row-left">
+            <div class="pin"></div>
+            <span class="pin-label-left">VIN</span>
+          </div>
+        </div>
+
+        <!-- Built-in LEDs -->
+        <div class="builtin-leds">
+          <div class="builtin-led power-led"></div>
+          <div class="builtin-led tx-led"></div>
+          <div class="builtin-led rx-led"></div>
+          <div class="builtin-led l-led"></div>
+        </div>
+      </div>
+
+      <!-- Breadboard -->
+      <div class="breadboard">
+        <!-- Power Rail Top (Red +) -->
+        <div class="power-rail-section">
+          <div class="rail-indicator red-indicator">+</div>
+          <div class="rail-holes-row">
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+          </div>
+          <div class="rail-line red-line"></div>
+        </div>
+
+        <!-- Power Rail Top (Blue -) -->
+        <div class="power-rail-section">
+          <div class="rail-indicator blue-indicator">-</div>
+          <div class="rail-holes-row">
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole" id="gnd-rail"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+          </div>
+          <div class="rail-line blue-line"></div>
+        </div>
+
+        <!-- Main Grid Area -->
+        <div class="main-grid">
+          <!-- Column Numbers -->
+          <div class="col-numbers">
+            <span></span>
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+            <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+            <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+            <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span>
+          </div>
+
+          <!-- Row A -->
+          <div class="grid-row">
+            <span class="row-label">a</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole" id="led-anode"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole" id="btn-pin1"></div><div class="hole"></div><div class="hole"></div><div class="hole" id="btn-pin2"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row B -->
+          <div class="grid-row">
+            <span class="row-label">b</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row C -->
+          <div class="grid-row">
+            <span class="row-label">c</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row D -->
+          <div class="grid-row">
+            <span class="row-label">d</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row E -->
+          <div class="grid-row">
+            <span class="row-label">e</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole" id="led-cathode"></div><div class="hole" id="resistor-end1"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole" id="resistor-end2"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Center Divider -->
+          <div class="center-divider"></div>
+
+          <!-- Row F -->
+          <div class="grid-row">
+            <span class="row-label">f</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole" id="gnd-wire-point"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole" id="btn-pin3"></div><div class="hole"></div><div class="hole"></div><div class="hole" id="btn-pin4"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row G -->
+          <div class="grid-row">
+            <span class="row-label">g</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row H -->
+          <div class="grid-row">
+            <span class="row-label">h</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row I -->
+          <div class="grid-row">
+            <span class="row-label">i</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+
+          <!-- Row J -->
+          <div class="grid-row">
+            <span class="row-label">j</span>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole" id="btn-gnd-point"></div><div class="hole"></div>
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+          </div>
+        </div>
+
+        <!-- Bottom Power Rails -->
+        <div class="power-rail-section bottom-rail">
+          <div class="rail-line blue-line"></div>
+          <div class="rail-holes-row">
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+          </div>
+          <div class="rail-indicator blue-indicator">-</div>
+        </div>
+
+        <div class="power-rail-section bottom-rail">
+          <div class="rail-line red-line"></div>
+          <div class="rail-holes-row">
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+            <div class="rail-gap"></div>
+            <div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div><div class="rail-hole"></div>
+          </div>
+          <div class="rail-indicator red-indicator">+</div>
+        </div>
+
+        <!-- Components on Breadboard -->
+        <!-- LED -->
+        <div class="led-component" id="led">
+          <div class="led-body">
+            <div class="led-dome"></div>
+            <div class="led-glow"></div>
+          </div>
+          <div class="led-legs">
+            <div class="led-leg long-leg"></div>
+            <div class="led-leg short-leg"></div>
+          </div>
+        </div>
+
+        <!-- Push Button -->
+        <div class="push-button" id="pushButton">
+          <div class="button-body">
+            <div class="button-top"></div>
+          </div>
+        </div>
+
+        <!-- Resistor -->
+        <div class="resistor">
+          <div class="resistor-wire left-wire"></div>
+          <div class="resistor-body">
+            <div class="band band1"></div>
+            <div class="band band2"></div>
+            <div class="band band3"></div>
+            <div class="band band4"></div>
+          </div>
+          <div class="resistor-wire right-wire"></div>
+        </div>
+      </div>
+
+      <!-- Wires SVG -->
+      <svg class="wires-svg" viewBox="0 0 900 500">
+        <!-- Wire from Pin 9 (Arduino right side) to LED (Red) -->
+        <path class="wire wire-red" d="M 252 168 L 278 168 L 278 42 L 340 42 L 340 82" />
+
+        <!-- Wire from Pin 13 (Arduino right side) to Button (Blue) -->
+        <path class="wire wire-blue" d="M 252 128 L 288 128 L 288 30 L 555 30 L 555 82" />
+
+        <!-- Wire from GND (Arduino) to Ground Rail on right (Black) -->
+        <path class="wire wire-black" d="M 252 88 L 298 88 L 298 18 L 710 18 L 710 58" />
+
+        <!-- Wire from Resistor end to GND Rail (Red) -->
+        <path class="wire wire-red" d="M 420 172 L 420 192 L 680 192 L 680 58" />
+
+        <!-- Wire from Button area to GND Rail (Black) -->
+        <path class="wire wire-black" d="M 585 148 L 585 202 L 695 202 L 695 58" />
+      </svg>
+
+      <!-- Labels -->
+      <div class="wire-labels">
+        <div class="label label-pin9">Pin 9</div>
+        <div class="label label-pin13">Pin 13</div>
+        <div class="label label-gnd">GND</div>
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="info-card">
+        <h3>Objective</h3>
+        <p>To design and implement an Arduino-based system that interfaces with a push button to control an LED. The LED turns ON when the button is pressed.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Components</h3>
+        <ul>
+          <li>1 x Arduino UNO</li>
+          <li>1 x Breadboard</li>
+          <li>1 x Red LED</li>
+          <li>1 x Push Button</li>
+          <li>1 x 1K Resistor</li>
+          <li>Jumper Wires</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Connections</h3>
+        <ul>
+          <li><strong>Pin 9</strong> - LED Anode (+)</li>
+          <li><strong>Pin 13</strong> - Push Button</li>
+          <li><strong>GND</strong> - Common Ground</li>
+          <li><strong>Resistor</strong> - LED to GND</li>
+        </ul>
+      </div>
+
+      <div class="info-card code-card">
+        <h3>Arduino Code</h3>
+        <pre><code>const int buttonPin = 13;
+const int ledPin = 9;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+
+void loop() {
+  int buttonState = digitalRead(buttonPin);
+  if (buttonState == LOW) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-indicator">
+        <span class="status-led" id="statusLed"></span>
+        <span class="status-text" id="statusText">Click the push button to turn ON the LED</span>
+      </div>
+    </div>
   </div>
-  <div id="groups"></div>
 
   <script>
-    function saveNotes() {
-      const groups = [];
-      document.querySelectorAll(".group").forEach(group => {
-        const groupName = group.querySelector("input").value;
-        const notes = [];
-        group.querySelectorAll(".note").forEach(note => {
-          notes.push({
-            content: note.querySelector(".note-content").innerHTML,
-            time: note.querySelector(".note-footer").innerText
-          });
-        });
-        groups.push({ groupName, notes });
-      });
-      localStorage.setItem("stickyNotes", JSON.stringify(groups));
+    const pushButton = document.getElementById('pushButton');
+    const led = document.getElementById('led');
+    const statusLed = document.getElementById('statusLed');
+    const statusText = document.getElementById('statusText');
+
+    function turnOnLED() {
+      led.classList.add('led-on');
+      statusLed.classList.add('active');
+      statusText.textContent = 'LED is ON - Button Pressed!';
     }
 
-    function loadNotes() {
-      const data = JSON.parse(localStorage.getItem("stickyNotes") || "[]");
-      data.forEach(g => {
-        const group = createGroup(g.groupName);
-        g.notes.forEach(n => createNote(group, n.content, n.time));
-      });
+    function turnOffLED() {
+      led.classList.remove('led-on');
+      statusLed.classList.remove('active');
+      statusText.textContent = 'Click the push button to turn ON the LED';
     }
 
-    function createGroup(name = "") {
-      const groupsContainer = document.getElementById("groups");
+    pushButton.addEventListener('mousedown', turnOnLED);
+    pushButton.addEventListener('mouseup', turnOffLED);
+    pushButton.addEventListener('mouseleave', turnOffLED);
+    pushButton.addEventListener('touchstart', (e) => { e.preventDefault(); turnOnLED(); });
+    pushButton.addEventListener('touchend', turnOffLED);
 
-      const group = document.createElement("div");
-      group.className = "group";
-
-      const title = document.createElement("h2");
-      const input = document.createElement("input");
-      input.placeholder = "Enter group name...";
-      input.value = name;
-      input.oninput = saveNotes;
-      title.appendChild(input);
-
-      const addNoteBtn = document.createElement("button");
-      addNoteBtn.innerText = "Add Note +";
-      addNoteBtn.onclick = () => createNote(group);
-      title.appendChild(addNoteBtn);
-
-      group.appendChild(title);
-
-      const notesContainer = document.createElement("div");
-      notesContainer.className = "notes";
-      group.appendChild(notesContainer);
-
-      const delGroupBtn = document.createElement("button");
-      delGroupBtn.className = "delete-group";
-      delGroupBtn.innerText = "✖";
-      delGroupBtn.onclick = () => {
-        if (confirm("Are you sure want to delete this group?")) {
-          group.remove();
-          saveNotes();
-        }
-      };
-      group.appendChild(delGroupBtn);
-
-      groupsContainer.appendChild(group);
-      saveNotes();
-      return group;
-    }
-
-    function createNote(group, content = "", time = "") {
-      const notesContainer = group.querySelector(".notes");
-
-      const note = document.createElement("div");
-      note.className = "note";
-
-      const delBtn = document.createElement("button");
-      delBtn.className = "delete-btn";
-      delBtn.innerText = "✖";
-      delBtn.onclick = () => {
-        if (confirm("Are you sure want to delete this note?")) {
-          note.remove();
-          saveNotes();
-        }
-      };
-      note.appendChild(delBtn);
-
-      const toolbar = document.createElement("div");
-      toolbar.className = "toolbar";
-
-      toolbar.innerHTML = `
-        <button onclick="formatText(this,'bold')"><b>B</b></button>
-        <button onclick="formatText(this,'italic')"><i>I</i></button>
-        <button onclick="formatText(this,'underline')"><u>U</u></button>
-        <button onclick="formatText(this,'insertUnorderedList')">•</button>
-        <button onclick="insertCheckbox(this)">☑</button>
-        <select onchange="formatText(this,'fontSize', this.value)">
-          <option value="3">Size</option>
-          <option value="2">Small</option>
-          <option value="3">Normal</option>
-          <option value="4">Large</option>
-          <option value="5">X-Large</option>
-        </select>
-        <input type="color" onchange="changeColor(this)">
-      `;
-      note.appendChild(toolbar);
-
-      const contentDiv = document.createElement("div");
-      contentDiv.className = "note-content";
-      contentDiv.contentEditable = "true";
-      contentDiv.setAttribute("data-placeholder", "Take a note...");
-      contentDiv.innerHTML = content;
-      contentDiv.oninput = () => {
-        updateLastEdited(note);
-        saveNotes();
-      };
-      note.appendChild(contentDiv);
-
-      const footer = document.createElement("div");
-      footer.className = "note-footer";
-      footer.innerText = time || "Last edited: never";
-      note.appendChild(footer);
-
-      notesContainer.appendChild(note);
-      saveNotes();
-    }
-
-    function updateLastEdited(note) {
-      const footer = note.querySelector(".note-footer");
-      footer.innerText = "Last edited: " + new Date().toLocaleString();
-    }
-
-    function formatText(el, command, value = null) {
-      const note = el.closest(".note");
-      const content = note.querySelector(".note-content");
-      content.focus();
-      document.execCommand(command, false, value);
-      updateLastEdited(note);
-      saveNotes();
-    }
-
-    function changeColor(el) {
-      formatText(el, "foreColor", el.value);
-    }
-
-    function insertCheckbox(el) {
-      const note = el.closest(".note");
-      const content = note.querySelector(".note-content");
-
-      const checkboxHTML = `
-        <div>
-          <input type="checkbox" onclick="this.nextElementSibling.style.textDecoration=this.checked?'line-through':'none'; saveNotes();" />
-          <span contenteditable="true">Enter text</span>
-        </div>
-      `;
-
-      content.focus();
-      document.execCommand("insertHTML", false, checkboxHTML);
-      updateLastEdited(note);
-      saveNotes();
-    }
-
-    loadNotes();
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') { e.preventDefault(); turnOnLED(); }
+    });
+    document.addEventListener('keyup', (e) => {
+      if (e.code === 'Space') { turnOffLED(); }
+    });
   </script>
 </body>
 </html>
